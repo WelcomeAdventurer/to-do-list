@@ -20,15 +20,16 @@ function removeTask(btn) {
   saveTasksToLocalStorage();
 }
 
-function editTask(btn) {
-  let task = btn.previousSibling;
-  task.setAttribute("contenteditable", "true");
-  task.focus();
-  task.onblur = function(){
-    task.setAttribute("contenteditable", "false");
-    saveTasksToLocalStorage();
-  }
+ function editTask(btn) {
+    let task = btn.parentNode.firstChild; //get the first child of the li which is the text node containing the task
+    task.contentEditable = true;
+    task.focus();
+    task.onblur = function(){
+        task.contentEditable = false;
+        saveTasksToLocalStorage();
+    }
 }
+
 
 function saveTasksToLocalStorage(){
   const request = window.indexedDB.open("tasks", 1);
